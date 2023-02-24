@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Create Expense</title>
+
+   <link rel="stylesheet"th:href="@{/css/juqery-ui.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+     <link rel="stylesheet" th:href="@{/css/base.css}"/>
+     <link rel="stylesheet" th:href="@{/css/expense-form.css}"/>
+</head>
+<body>
+
+
+    <nav class="fixed-top bg-header-color py-4">
+     <div class="app-header">
+         <div class="d-flex justify-content-between alight-items-center">
+              <a th:href="@{/expenses}" class="text-white">
+                 <span class="font-size-medium font-weight-bold">
+                      Expense Manager
+                 </span>     
+               </a>
+              <div  >
+                 <a th:href="@{/logout}" class="text-white font-size-smnall">Logout</a>
+               </div>
+           </div>
+     </div>
+    </nav>
+    <div class="main-content">
+       <div class="container-fluid bg-light py-4 mb-4">
+            <div class="app-header">Create Expense</div>
+       </div>
+    
+    
+        <div class="app-header">
+         <form  th:action ="@{/saveOrUpdateExpenses}"  th:object="${expense}"  method="post" id="expenseform">
+    
+    
+    <!-- We are attching each property to java object's property -->
+     <input type="text"
+      placeholder="Enter expense name" 
+      th:field="*{name}"
+      class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"
+      autofocus="autofocus"
+      />
+     <span 
+         th:if="${#fields.hasErrors('name')}" 
+         th:errors="*{name}">
+      </span>
+     
+     
+     <input type="text" placeholder="Enter amount" th:field="*{amount}" 
+      id="amount"
+      oninput="validateNumber(this);"
+      class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"
+     />
+     
+     
+      <span th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></span>
+     
+     
+      <input type="text"  th:field="*{dateString}" 
+      placeholder="dd/mm/yyyy" 
+      id="createdAt"
+      class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"
+      />
+       <span th:if="${#fields.hasErrors('dateString')}" th:errors="*{dateString}"></span>
+     
+      <textarea rows="5"
+       placeholder ="Enter description" 
+        th:field="*{desciption}"
+        class="form-control col-12 col-sm-12 col-md-6 input-width mb-3"></textarea>
+      
+      <button type="submit" class="btn button_default text-white mt-2">Save Expense</button>
+      <input type="hidden" th:field="*{id}"/>
+      <input type="hidden" th:field="*{expenseId}"/>
+       </form>
+        <a th:href="@{/expenses}">Back to expenses</a>
+      
+       </div>
+    </div>
+    
+    
+  
+
+   
+   
+    
+    <script th:src="@{/js/jquery.js}"></script>
+     <script th:src="@{/js/jquery-ui.js}"></script>
+      <script th:src="@{/js/expense-form.js}"></script>
+       <script th:src="@{/js/jquery-validator.js}"></script>
+          <script th:src="@{/js/bootstrap.js}"></script>
+     
+     
+
+</body>
+</html>
